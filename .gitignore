@@ -1,0 +1,44 @@
+# ---- Build Artifacts ----
+build/
+cmake-build-debug/
+cmake-build-release/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+*.a
+*.so
+*.dylib
+*.o
+
+# ---- Executables ----
+generator
+processor
+logger
+
+# ---- Logs ----
+logs/
+*.log
+
+# ---- Image Output ----
+images/
+output/
+processed/
+
+# ---- Databases ----
+data_log.db
+
+# ---- Python ----
+__pycache__/
+*.pyc
+
+# ---- macOS junk ----
+.DS_Store
+
+# ---- VSCode ----
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# ---- ZeroMQ runtime ----
+*.zmq
