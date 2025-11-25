@@ -4,6 +4,7 @@
 #include <chrono>
 #include <random>
 #include <sstream>
+#include <fstream>
 #include <iomanip>
 
 #include <vector>
@@ -12,6 +13,17 @@
 #include <opencv2/core.hpp>
 #include <opencv2/features2d.hpp>
 
+namespace config {
+    nlohmann::json loadConfig(const std::string &path) {
+        std::ifstream f(path);
+        if (!f.is_open()) {
+            throw std::runtime_error("Cannot open config file: " + path);
+        }
+        nlohmann::json j;
+        f >> j;
+        return j;
+    }
+}
 
 inline std::string now_iso8601(){
     using namespace std::chrono;

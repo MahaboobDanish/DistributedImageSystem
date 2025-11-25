@@ -1,0 +1,22 @@
+{
+  "generator": {
+    "image_folder": "underwater_images",
+    "publish_port": 6000,
+    "loop_images": true,
+    "sleep_ms": 100
+  },
+  "processor": {
+    "subscribe_port": 6000,
+    "publish_port": 6001,
+    "sift_nfeatures": 0
+  },
+  "logger": {
+    "subscribe_port": 6001,
+    "db_path": "data/data_log.db",
+    "image_save_path": "images"
+  },
+  "logging": {
+    "level": "INFO",
+    "log_folder": "logs"
+  }
+}

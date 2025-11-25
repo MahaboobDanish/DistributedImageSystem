@@ -11,9 +11,9 @@ Makefile
 *.o
 
 # ---- Executables ----
-generator
-processor
-logger
+# generator
+# processor
+# logger
 
 # ---- Logs ----
 logs/

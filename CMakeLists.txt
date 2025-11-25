@@ -60,6 +60,13 @@ add_subdirectory(src/processor)
 add_subdirectory(src/logger)
 
 
+# -----------------------------
+# Add tests
+# -----------------------------
+enable_testing()
+add_subdirectory(tests)
+
+
 # cmake_minimum_required(VERSION 3.16)
 # project(UnderwaterIPC)
 
