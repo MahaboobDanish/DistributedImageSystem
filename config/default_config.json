@@ -13,7 +13,12 @@
   "logger": {
     "subscribe_port": 6001,
     "db_path": "data/data_log.db",
-    "image_save_path": "images"
+
+    "image_root_dir": "processed_images",
+    "image_save_path": "processed_images/processed"
+  },
+  "visualizer": {
+    "output_path": "processed_images/visualized"
   },
   "logging": {
     "level": "INFO",
