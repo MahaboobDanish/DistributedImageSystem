@@ -37,7 +37,37 @@ THis project was built to demostrate __system design__, __IPC__, __image process
    - Saves:
      - Raw processed images
      - Visualized keypoints
+### Deign Choices
+1. IPC Mechanism
+   - ZeroMQ with multipart messages (cppzmq)
+   - Why:
+     - cross-platform,
+     - very resilient to peers starting/stopping
+     - supports pub/sub, push/pull, request/response
+     - scales
+2. __Message Format & Serialization__: ZeroMQ multipart where:
+   __Message Format__
+   - Part 1 = JSON metadata (image id, timestamp, width, height, encoding, sequence number).
+     Use `nlohmann::json`
+   - Part 2 = image bytes use `cv::imencode()` to JPG/PNG to control size.
+   - Part 3 (when Processor → Logger) = serialized keypoints + descriptors (binary blob).
+   __Keypoint serialization__: pack as compact binary
+    - For each keypoint store: x (float32), y (float32), size (float32), angle (float32), response (float32), octave (int32), class_id (int32) followed by descriptor vector (128 * float32).
 
+3. __Image Size Handling__
+   - Compress with `cv::imencode`(".jpg", img, params) to reduce transfer size. Keep a configurable JPEG quality.
+   - If images are enormous (>30 MB), consider streaming chunks or using shared memory for zero-copy.
+4. __Reliability & Ordering__
+   - Generator → Processor: PUSH (Generator) / PULL (Processor).
+   - Processor → Logger: PUSH/PULL.
+   - This gives load-balancing and backpressure.
+5. Persistance/DB
+   - __SQLite__ (local, file-based, zero-admin)
+   - Stores: Metadata table (image_id, timestamp, generator_sequence, image_path, number_of_keypoints, keypoints_blob).
+6. Processed Images, Log Files, Visualized Images:
+   - store these on disk (organized by run/timestamp)
+7. Logging & Monitoring:
+   - Structured logging with lock_guard (ofstream, mutex): `std::lock_guard<std::mutex> lock(mtx)`
 ### Project Structure
 ````
 underwater-ipc/
@@ -139,18 +169,15 @@ All executables are located inside the `build/` directory after compilation
 
 1. __Start Logger (Optional First)__
    ````
-   cd build/src/logger
-   ./logger
+   ./build/src/logger/logger
    ````
 2. __Start Processor__
    ````
-   cd build/src/processor
-   ./processor
+   ./build/src/processor
    ````
 3. __Start Generator__
    ````
-   cd build/src/generator
-   ./generator ../../underwater_images
+   ./build/src/generator/generator
    ````
 __Note__: 
 - If __Generator starts before Processor__, images will wait until Processor becomes avaiable.
@@ -193,7 +220,10 @@ Stop all:
   ````
   tests/e2e/e2e_flow_test.cpp
   ````
-
+- with CMake:
+  ````
+  ctest --output-on-failure
+  ````
   Tests are currently executed manually as standalone binaries after build.
 ### Logging
 - Logging method: __File-based logging__
