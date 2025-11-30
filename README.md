@@ -4,21 +4,61 @@ A modular, distributed image processing system written in modern C++ that simula
 performs feature extraction using __OpenCV__, and stores processed data into a databse using __inter-process communication (IPC)__.
 THis project was built to demostrate __system design__, __IPC__, __image processing__ and __storage piplines__.
 
-### Platform & Build Environment
-- Development OS: macOS (Apple Silicon).
-- Target OS: Linus (as per project requirement).
-- Compiler:
+## Platform & Build Environment
+1. **Development OS**: macOS (Apple Silicon).
+   
+2. **Target OS**: Linux (as per project requirement).
+   
+3. **Compiler**:
   ````
   Apple clang version 17.0.0 (clang-1700.4.4.1)
   Target: arm64-apple-darwin25.1.0
   Thread model: posix
   ````
-- BUild System: CMake
+4. **Build System**: CMake
   ````
   cmake version 4.0.3
   ````
-- Package Manager:
-  - Homebrew (pkg-config not installed)
+5. **Package Manager**:
+  - macOS: Homebrew (pkg-config not installed)
+  - Linux: apt / yum / dnf
+6. **Required Libraries / Dependencies:**
+    
+    a. **OpenCV(>=4.5)** - for image processing and SIFT
+    ```bash
+    brew install opencv
+    ```
+    
+    b. **ZeroMQ** - for IPC between applications
+    ```bash
+    brew install zeromq
+    ```
+    
+    c. **SQLite3** - for data logging
+    ```bash
+    brew install sqlite3
+    ```
+    
+    d. **nlohmann/json** - for config file parsing (header-only library)
+    ```bash
+    brew install nlohmann-json
+    ```
+    
+    e. **C++17** or higher - required for modern C++ features used in project.
+    
+7. **Optional Tools / Utilities**
+   
+    a. **tmux** - for running the three apps ina single session (run_all.sh)
+      ```bash
+      brew install tmux
+      ```
+      
+    b. **Pyhton3.x** - only if using the optional webUI like keypoint_visualization.
+   
+**Notes**:
+- Ensure all dependensies are discoverable by CMake(pkg-config may berequired for linux)
+- All applications build and run using the provided `CMakeLists.txt`
+- The project has been tested on macOS with Apple silicon; Linux compatibility ensured via CMake and cross-patform libraries.
 ## System Architecture Overview
 1. Image Generator
    - Reads imgaes from disk continuosly.
@@ -111,7 +151,7 @@ underwater-ipc/
 │  ├─ processor.log
 │  └─ logger.log
 └─ data/
-   └─ database.db
+   └─ data_log.db
 ````
 ## Configuraiton
 ```bash
