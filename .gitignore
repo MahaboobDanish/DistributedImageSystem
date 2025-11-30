@@ -20,9 +20,11 @@ logs/
 *.log
 
 # ---- Image Output ----
-images/
-output/
-processed/
+
+processed_images/
+
+# ---- TEssts ----
+Testing/
 
 # ---- Databases ----
 data_log.db
