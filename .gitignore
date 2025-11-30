@@ -20,12 +20,15 @@ logs/
 *.log
 
 # ---- Image Output ----
+images/
+output/
+processed/
+visualized/
 
-processed_images/
-
-# ---- TEssts ----
+# ---- Testing ----
 Testing/
-
+*.txt
+*.log
 # ---- Databases ----
 data_log.db
 
