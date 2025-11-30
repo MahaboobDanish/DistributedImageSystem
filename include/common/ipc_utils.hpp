@@ -50,6 +50,7 @@ uint32_t D => Descriptor lenght per keypoints
 uint32_t desc_type => (0=float32 descriptor entries, 1 = uint8_t descriptor entries)
 
 */
+
 inline std::vector<uint8_t> serialize_keypoints_and_descriptors(
     const std::vector<cv::KeyPoint>& kps,
     const cv::Mat& descriptors){
@@ -194,3 +195,4 @@ inline std::pair<std::vector<cv::KeyPoint>, cv::Mat> deserialize_keypoints_and_d
 
     return {kps, descriptors};
 }
+

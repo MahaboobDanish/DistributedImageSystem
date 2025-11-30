@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "*.embeddedhtml": "html",
-        "streambuf": "cpp"
+        "streambuf": "cpp",
+        "regex": "cpp",
+        "chrono": "cpp"
     }
 }
