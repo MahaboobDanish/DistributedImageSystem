@@ -68,6 +68,31 @@ THis project was built to demostrate __system design__, __IPC__, __image process
    - store these on disk (organized by run/timestamp)
 7. Logging & Monitoring:
    - Structured logging with lock_guard (ofstream, mutex): `std::lock_guard<std::mutex> lock(mtx)`
+
+## Dataset / Underwater Images
+
+The project uses a subset of the **Semantic Segmentation of Underwater Imagery (SUIM) dataset**:
+
+- Original dataset source: [Kaggle link](https://www.kaggle.com/datasets/ashish2001/semantic-segmentation-of-underwater-imagery-suim/data)  
+- **Note:** Only the images are considered for this project, **not the segmentation masks**.
+
+### Folder Structure
+
+The folder `underwater_images/` contains:
+
+1. **Sample images** – 8–10 images included for quick testing and verification.  
+2. **Full dataset ZIP** – `underwater_images.zip` (~160MB, ~1500 images).  
+
+### How to use the dataset
+
+To test the full dataset:
+
+1. Place `underwater_images.zip` inside the `underwater_images/` folder (it may already be there).  
+2. Extract the zip to expand the full corpus of images:
+
+```bash
+unzip underwater_images/underwater_images.zip -d underwater_images/
+
 ### Project Structure
 ````
 underwater-ipc/
